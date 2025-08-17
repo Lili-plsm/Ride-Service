@@ -18,19 +18,19 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "clients")
 public class Client {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    private String defaultAddress;
+  private String defaultAddress;
 
-    private Double rating;
+  private Double rating;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 }

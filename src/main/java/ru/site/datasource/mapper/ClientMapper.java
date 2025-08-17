@@ -8,12 +8,11 @@ import ru.site.web.model.ClientCreateRequest;
 @Component
 public class ClientMapper {
 
-    public Client toEntity(ClientCreateRequest request, User user) {
-        Client client = new Client();
-        client.setUser(user);
-        client.setDefaultAddress(request.getFirstName() + " " +
-                                 request.getLastName());
-        client.setRating(0.0);
-        return client;
-    }
+  public Client toEntity(ClientCreateRequest request, User user) {
+    Client client = new Client();
+    client.setUser(user);
+    client.setDefaultAddress(request.getFirstName() + " " + request.getLastName());
+    client.setRating(0.0);
+    return client;
+  }
 }

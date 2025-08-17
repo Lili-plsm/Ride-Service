@@ -17,48 +17,45 @@ import ru.site.security.service.AuthService;
 @RestController
 public class AuthController {
 
-    private final UserService userService;
-    private final AuthService authService;
+  private final UserService userService;
+  private final AuthService authService;
 
-    public AuthController(UserService userService, AuthService authService) {
-        this.userService = userService;
-        this.authService = authService;
-    }
+  public AuthController(UserService userService, AuthService authService) {
+    this.userService = userService;
+    this.authService = authService;
+  }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid
-                                      @RequestBody JwtRequest jwtRequest) {
+  @PostMapping("/register")
+  public ResponseEntity<?> register(@Valid @RequestBody JwtRequest jwtRequest) {
 
-        userService.register(jwtRequest);
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .body(Map.of("message", "Пользователь успешно зарегистрирован"));
-    }
-    @PostMapping("/auth")
-    public ResponseEntity<JwtResponse>
-    auth(@Valid @RequestBody JwtRequest jwtRequest) {
-        JwtResponse jwtResponse = authService.auth(jwtRequest);
-        return ResponseEntity.ok(jwtResponse);
-    }
+    userService.register(jwtRequest);
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(Map.of("message", "Пользователь успешно зарегистрирован"));
+  }
 
-    @PostMapping("/update_access")
-    public ResponseEntity<JwtResponse>
-    updateAccessToken(@Valid @RequestBody RefreshJwtRequest refreshJwtRequest) {
-        JwtResponse updatedJwt =
-            authService.updateAccessToken(refreshJwtRequest.getRefreshToken());
-        return ResponseEntity.ok(updatedJwt);
-    }
+  @PostMapping("/auth")
+  public ResponseEntity<JwtResponse> auth(@Valid @RequestBody JwtRequest jwtRequest) {
+    JwtResponse jwtResponse = authService.auth(jwtRequest);
+    return ResponseEntity.ok(jwtResponse);
+  }
 
-    @PostMapping("/update_refresh")
-    public ResponseEntity<JwtResponse> updateRefreshToken(
-        @Valid @RequestBody RefreshJwtRequest refreshJwtRequest) {
-        JwtResponse updatedJwt =
-            authService.updateRefreshToken(refreshJwtRequest.getRefreshToken());
-        return ResponseEntity.ok(updatedJwt);
-    }
-	
-	@GetMapping("/users/current/id")
-	public ResponseEntity<?> getCurrentUserId() {
-		Long userId = userService.getCurrentUser().getId();
-		return ResponseEntity.ok(Map.of("userId", userId));
-	}
+  @PostMapping("/update_access")
+  public ResponseEntity<JwtResponse> updateAccessToken(
+      @Valid @RequestBody RefreshJwtRequest refreshJwtRequest) {
+    JwtResponse updatedJwt = authService.updateAccessToken(refreshJwtRequest.getRefreshToken());
+    return ResponseEntity.ok(updatedJwt);
+  }
+
+  @PostMapping("/update_refresh")
+  public ResponseEntity<JwtResponse> updateRefreshToken(
+      @Valid @RequestBody RefreshJwtRequest refreshJwtRequest) {
+    JwtResponse updatedJwt = authService.updateRefreshToken(refreshJwtRequest.getRefreshToken());
+    return ResponseEntity.ok(updatedJwt);
+  }
+
+  @GetMapping("/users/current/id")
+  public ResponseEntity<?> getCurrentUserId() {
+    Long userId = userService.getCurrentUser().getId();
+    return ResponseEntity.ok(Map.of("userId", userId));
+  }
 }

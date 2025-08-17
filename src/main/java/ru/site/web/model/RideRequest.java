@@ -11,9 +11,9 @@ import ru.site.datasource.enums.RideStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RideRequest {
-    private RideStatus rideStatus;
-    private Double startLatitude;
-    private Double startLongitude;
-    private Double endLatitude;
-    private Double endLongitude;
+  private RideStatus rideStatus;
+  private Double startLatitude;
+  private Double startLongitude;
+  private Double endLatitude;
+  private Double endLongitude;
 }

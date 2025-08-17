@@ -12,14 +12,14 @@ import ru.site.datasource.enums.RideStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientRideCreatedEvent {
-    private Long id;
-    private Long driverId;
-    private Long clientId;
-    private RideStatus rideStatus;
-    private Double startLatitude;
-    private Double startLongitude;
-    private Double endLatitude;
-    private Double endLongitude;
-    private Long paymentId;
-    private LocalDateTime createdAt;
+  private Long id;
+  private Long driverId;
+  private Long clientId;
+  private RideStatus rideStatus;
+  private Double startLatitude;
+  private Double startLongitude;
+  private Double endLatitude;
+  private Double endLongitude;
+  private Long paymentId;
+  private LocalDateTime createdAt;
 }

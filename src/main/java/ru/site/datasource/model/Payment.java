@@ -18,20 +18,20 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class Payment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "ride_id", nullable = false, unique = true)
-    private Long rideId;
+  @Column(name = "ride_id", nullable = false, unique = true)
+  private Long rideId;
 
-    @Column(nullable = false)
-    private Long clientId;
+  @Column(nullable = false)
+  private Long clientId;
 
-    @Column(nullable = false)
-    private Double amount;
+  @Column(nullable = false)
+  private Double amount;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 }

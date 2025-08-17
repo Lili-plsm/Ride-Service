@@ -19,29 +19,27 @@ import ru.site.datasource.enums.DriverStatus;
 @Table(name = "drivers")
 public class Driver {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    private String carModel;
-    private String carNumber;
+  private String carModel;
+  private String carNumber;
 
-    @Enumerated(EnumType.STRING)
-    private DriverStatus status;
+  @Enumerated(EnumType.STRING)
+  private DriverStatus status;
 
-    private Double rating;
+  private Double rating;
 
-    @Column()
-    private Double latitude;
+  @Column() private Double latitude;
 
-    @Column()
-    private Double longitude;
+  @Column() private Double longitude;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 }

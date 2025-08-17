@@ -1,4 +1,5 @@
 package ru.site;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,7 +13,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 @SpringBootApplication
 @EnableCaching
 public class RideApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(RideApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(RideApplication.class, args);
+  }
 }

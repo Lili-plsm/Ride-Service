@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DriverRideRequestEvent {
-    private Long driverId;
-    private double currentLatitude;
-    private double currentLongitude;
+  private Long driverId;
+  private double currentLatitude;
+  private double currentLongitude;
 }

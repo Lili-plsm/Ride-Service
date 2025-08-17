@@ -6,11 +6,11 @@ import ru.site.security.model.JwtResponse;
 
 public interface AuthService {
 
-    JwtResponse auth(JwtRequest jwtRequest);
+  JwtResponse auth(JwtRequest jwtRequest);
 
-    JwtResponse updateRefreshToken(String refreshToken);
+  JwtResponse updateRefreshToken(String refreshToken);
 
-    JwtResponse updateAccessToken(String refreshToken);
+  JwtResponse updateAccessToken(String refreshToken);
 
-    JwtAuthentication getJwtAuthentication(String token);
+  JwtAuthentication getJwtAuthentication(String token);
 }

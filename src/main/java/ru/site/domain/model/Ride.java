@@ -11,19 +11,18 @@ import ru.site.datasource.enums.RideStatus;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Ride {
 
-    private Long id;
-    private Long driverId;
-    private Long clientId;
+  private Long id;
+  private Long driverId;
+  private Long clientId;
 
-    private RideStatus rideStatus;
+  private RideStatus rideStatus;
 
-    private Double startLatitude;
-    private Double startLongitude;
-    private Double endLatitude;
-    private Double endLongitude;
+  private Double startLatitude;
+  private Double startLongitude;
+  private Double endLatitude;
+  private Double endLongitude;
 
-    private LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 }

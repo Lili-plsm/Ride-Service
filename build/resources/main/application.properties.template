@@ -3,9 +3,7 @@ server.port=8081
 spring.datasource.url=jdbc:postgresql://localhost:5432/db_name
 spring.datasource.username=username
 spring.datasource.password=password
-
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 springdoc.swagger-ui.path=/hidden-docs-xyzz
@@ -14,18 +12,14 @@ jwt.secret-key=jwt_secret_key
 jwt.expirationTimeAccess=360000000
 jwt.expirationTimeRefresh=360000000
 
-spring.redis.host=localhost
-spring.redis.port=6379
 
 spring.kafka.bootstrap-servers=localhost:9092
-
-spring.kafka.consumer.group-id=your_consumer_group_id_here
+spring.kafka.consumer.group-id=consumer_group_id_here
 spring.kafka.consumer.auto-offset-reset=earliest
 spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
-
 spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
 spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
 
-# --- Pricing settings ---
+
 pricing.price-per-km=20.0

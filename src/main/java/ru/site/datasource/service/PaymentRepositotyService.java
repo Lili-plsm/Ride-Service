@@ -5,5 +5,5 @@ import ru.site.datasource.model.Payment;
 
 @Service
 public interface PaymentRepositotyService {
-    Payment savePayment(Payment payment);
+  Payment savePayment(Payment payment);
 }

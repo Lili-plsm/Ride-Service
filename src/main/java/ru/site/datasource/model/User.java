@@ -23,30 +23,32 @@ import lombok.Setter;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    @Column(unique = true, nullable = false)
-    private String login;
+  @Column(unique = true, nullable = false)
+  private String login;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false)
+  private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+  @ManyToMany(fetch = FetchType.EAGER)
+  private List<Role> roles;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+  public User(String login, String password) {
+    this.login = login;
+    this.password = password;
+  }
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public void addRole(Role role) {
+    if (this.roles == null) {
+      this.roles = new ArrayList<>();
     }
-
-    public List<Role> getRoles() { return roles; }
-
-    public void addRole(Role role) {
-        if (this.roles == null) {
-            this.roles = new ArrayList<>();
-        }
-        this.roles.add(role);
-    }
+    this.roles.add(role);
+  }
 }

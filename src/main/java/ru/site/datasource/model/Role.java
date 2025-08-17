@@ -16,17 +16,19 @@ import ru.site.datasource.enums.RoleName;
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
-    public Role(RoleName roleName) { this.roleName = roleName; }
+  public Role(RoleName roleName) {
+    this.roleName = roleName;
+  }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
+  @Enumerated(EnumType.STRING)
+  private RoleName roleName;
 
-    @Override
-    public String getAuthority() {
-        return roleName.name();
-    }
+  @Override
+  public String getAuthority() {
+    return roleName.name();
+  }
 }

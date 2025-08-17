@@ -14,24 +14,27 @@ import ru.site.security.service.JwtProvider;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public AuthFilter authFilter(JwtProvider jwtProvider,
-                                 AuthService authService) {
-        return new AuthFilter(jwtProvider, authService);
-    }
+  @Bean
+  public AuthFilter authFilter(JwtProvider jwtProvider, AuthService authService) {
+    return new AuthFilter(jwtProvider, authService);
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   AuthFilter authFilter)
-        throws Exception {
-        return http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth
-                                   -> auth.requestMatchers("/register", "/auth", "/update_access", "/update_refresh")
-                                          .permitAll()
-                                          .anyRequest()
-                                          .authenticated())
-            .addFilterBefore(authFilter,
-                             UsernamePasswordAuthenticationFilter.class)
-            .build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthFilter authFilter)
+      throws Exception {
+    return http.csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(
+            auth ->
+                auth.requestMatchers(
+                        "/register",
+                        "/auth",
+                        "/update_access",
+                        "/update_refresh",
+                        "/swagger-ui.html")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+        .build();
+  }
 }

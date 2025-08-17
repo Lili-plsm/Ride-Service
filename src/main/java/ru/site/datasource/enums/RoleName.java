@@ -1,4 +1,6 @@
 package ru.site.datasource.enums;
 
-public enum RoleName { USER,
-                       ADMIN }
+public enum RoleName {
+  USER,
+  ADMIN
+}

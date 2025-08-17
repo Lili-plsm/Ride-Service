@@ -8,19 +8,18 @@ import lombok.Data;
 
 @Data
 public class ClientCreateRequest {
-    private Long userId;
+  private Long userId;
 
-    @NotBlank(message = "Имя не должно быть пустым")
-    @Size(max = 50, message = "Имя не может быть длиннее 50 символов")
-    private String firstName;
+  @NotBlank(message = "Имя не должно быть пустым")
+  @Size(max = 50, message = "Имя не может быть длиннее 50 символов")
+  private String firstName;
 
-    @Size(max = 50, message = "Фамилия не может быть длиннее 50 символов")
-    private String lastName;
+  @Size(max = 50, message = "Фамилия не может быть длиннее 50 символов")
+  private String lastName;
 
-    @Pattern(regexp = "\\+?[0-9]{10,15}",
-             message = "Неверный формат номера телефона")
-    private String phoneNumber;
+  @Pattern(regexp = "\\+?[0-9]{10,15}", message = "Неверный формат номера телефона")
+  private String phoneNumber;
 
-    @Email(message = "Неверный формат email")
-    private String email;
+  @Email(message = "Неверный формат email")
+  private String email;
 }

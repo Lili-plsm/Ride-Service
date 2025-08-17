@@ -11,7 +11,7 @@ import ru.site.datasource.enums.RideStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewRideStatusEvent {
-    private Long rideId;
-    private Long driverId;
-    private RideStatus rideStatus;
+  private Long rideId;
+  private Long driverId;
+  private RideStatus rideStatus;
 }

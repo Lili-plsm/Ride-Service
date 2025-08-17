@@ -23,60 +23,58 @@ import ru.site.web.model.RideResponse;
 @RestController
 public class ClientController {
 
-    private final ClientService clientService;
-    private final RideService rideService;
-    private final ClientMapper clientMapper;
-    private final UserService userService;
-    private final RideWebMapper rideWebMapper;
+  private final ClientService clientService;
+  private final RideService rideService;
+  private final ClientMapper clientMapper;
+  private final UserService userService;
+  private final RideWebMapper rideWebMapper;
 
-    public ClientController(ClientService clientService,
-                            UserService userService,
-                            ClientMapper clientMapper,
-                            RideWebMapper rideWebMapper,
-                            RideService rideService) {
-        this.clientService = clientService;
-        this.userService = userService;
-        this.clientMapper = clientMapper;
-        this.rideWebMapper = rideWebMapper;
-        this.rideService = rideService;
-    }
+  public ClientController(
+      ClientService clientService,
+      UserService userService,
+      ClientMapper clientMapper,
+      RideWebMapper rideWebMapper,
+      RideService rideService) {
+    this.clientService = clientService;
+    this.userService = userService;
+    this.clientMapper = clientMapper;
+    this.rideWebMapper = rideWebMapper;
+    this.rideService = rideService;
+  }
 
-	private static final String DEFAULT_RIDE_DESCRIPTION = "Описание поездки";
+  private static final String DEFAULT_RIDE_DESCRIPTION = "Описание поездки";
 
-    @GetMapping("/clients/rides/current")
-    public ResponseEntity<?> getCurrentRideStatus() throws JsonProcessingException {
-		
-        Long clientId = userService.getCurrentUser().getId();
+  @GetMapping("/clients/rides/current")
+  public ResponseEntity<?> getCurrentRideStatus() throws JsonProcessingException {
 
-        Ride ride = rideService.getCurrentRideByClientId(clientId);
+    Long clientId = userService.getCurrentUser().getId();
 
-		RideResponse rideResponses = rideWebMapper.toResponse(ride, DEFAULT_RIDE_DESCRIPTION);
-		
-        if (ride == null) {
-			return ResponseEntity.ok(Map.of("message", "нет текущий поездки"));
-        } else
-            return ResponseEntity.ok(rideResponses);
-    }
+    Ride ride = rideService.getCurrentRideByClientId(clientId);
 
-    @PostMapping("/clients/rides")
-    public ResponseEntity<?> createRide(@RequestBody RideRequest rideRequest)
-        throws JsonProcessingException {
-        Long clientId = userService.getCurrentUser().getId();
-        Ride ride = rideWebMapper.fromRequest(rideRequest);
-        ride.setClientId(clientId);
-        clientService.createRide(ride);
+    RideResponse rideResponses = rideWebMapper.toResponse(ride, DEFAULT_RIDE_DESCRIPTION);
 
-		return ResponseEntity.ok(Map.of("message", "Запрос на поездку создан"));
-    }
+    if (ride == null) {
+      return ResponseEntity.ok(Map.of("message", "нет текущий поездки"));
+    } else return ResponseEntity.ok(rideResponses);
+  }
 
-    @PostMapping("/clients")
-    public ResponseEntity<?>
-    createClient(@Valid @RequestBody ClientCreateRequest clientCreateRequest)
-        throws JsonProcessingException {
-        User user = userService.getCurrentUser();
-        Client client = clientMapper.toEntity(clientCreateRequest, user);
-        clientService.saveClient(client);
-        return ResponseEntity.ok(Map.of("message", "Клиент создан"));
-    }
+  @PostMapping("/clients/rides")
+  public ResponseEntity<?> createRide(@RequestBody RideRequest rideRequest)
+      throws JsonProcessingException {
+    Long clientId = userService.getCurrentUser().getId();
+    Ride ride = rideWebMapper.fromRequest(rideRequest);
+    ride.setClientId(clientId);
+    clientService.createRide(ride);
 
+    return ResponseEntity.ok(Map.of("message", "Запрос на поездку создан"));
+  }
+
+  @PostMapping("/clients")
+  public ResponseEntity<?> createClient(@Valid @RequestBody ClientCreateRequest clientCreateRequest)
+      throws JsonProcessingException {
+    User user = userService.getCurrentUser();
+    Client client = clientMapper.toEntity(clientCreateRequest, user);
+    clientService.saveClient(client);
+    return ResponseEntity.ok(Map.of("message", "Клиент создан"));
+  }
 }

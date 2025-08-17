@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DriverLocation {
-    private Double latitude;
-    private Double longitude;
+  private Double latitude;
+  private Double longitude;
 }

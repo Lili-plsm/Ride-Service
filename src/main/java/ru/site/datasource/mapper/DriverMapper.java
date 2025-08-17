@@ -8,15 +8,15 @@ import ru.site.web.model.DriverCreateRequest;
 @Component
 public class DriverMapper {
 
-    public Driver toEntity(DriverCreateRequest request, User user) {
-        Driver driver = new Driver();
-        driver.setUser(user);
-        driver.setCarModel(request.getCarModel());
-        driver.setCarNumber(request.getCarNumber());
-        driver.setStatus(request.getStatus());
-        driver.setLatitude(request.getLatitude());
-        driver.setLongitude(request.getLongitude());
-        driver.setRating(0.0);
-        return driver;
-    }
+  public Driver toEntity(DriverCreateRequest request, User user) {
+    Driver driver = new Driver();
+    driver.setUser(user);
+    driver.setCarModel(request.getCarModel());
+    driver.setCarNumber(request.getCarNumber());
+    driver.setStatus(request.getStatus());
+    driver.setLatitude(request.getLatitude());
+    driver.setLongitude(request.getLongitude());
+    driver.setRating(0.0);
+    return driver;
+  }
 }

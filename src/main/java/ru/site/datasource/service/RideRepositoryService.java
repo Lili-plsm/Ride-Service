@@ -7,9 +7,13 @@ import ru.site.domain.model.Ride;
 
 @Service
 public interface RideRepositoryService {
-    RideEntity saveRide(RideEntity ride);
-    List<Ride> findByClientId(Long clientId);
-    List<Ride> findByDriverId(Long driverId);
-    RideEntity getRide(Long id);
-    List<Ride> getAllRides();
+  RideEntity saveRide(RideEntity ride);
+
+  List<Ride> findByClientId(Long clientId);
+
+  List<Ride> findByDriverId(Long driverId);
+
+  RideEntity getRide(Long id);
+
+  List<Ride> getAllRides();
 }

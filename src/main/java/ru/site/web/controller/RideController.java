@@ -11,19 +11,18 @@ import ru.site.domain.service.UserService;
 @RestController
 public class RideController {
 
-    private final RideService rideService;
-    private final UserService userService;
+  private final RideService rideService;
+  private final UserService userService;
 
-    public RideController(RideService rideService,
-                          UserService userService) {
-        this.rideService = rideService;
-        this.userService = userService;
-    }
+  public RideController(RideService rideService, UserService userService) {
+    this.rideService = rideService;
+    this.userService = userService;
+  }
 
-    @PatchMapping("/rides/{rideId}/cancel")
-    public ResponseEntity<?> cancelRide(@PathVariable Long rideId) {
-        Long clientId = userService.getCurrentUser().getId();
-        rideService.cancelRide(rideId, clientId);
-        return ResponseEntity.ok(Map.of("message", "Поездка отменена"));
-    }
+  @PatchMapping("/rides/{rideId}/cancel")
+  public ResponseEntity<?> cancelRide(@PathVariable Long rideId) {
+    Long clientId = userService.getCurrentUser().getId();
+    rideService.cancelRide(rideId, clientId);
+    return ResponseEntity.ok(Map.of("message", "Поездка отменена"));
+  }
 }

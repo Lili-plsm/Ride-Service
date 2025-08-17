@@ -8,7 +8,7 @@ import ru.site.datasource.model.RideEntity;
 @Repository
 public interface RideRepository extends JpaRepository<RideEntity, Long> {
 
-    List<RideEntity> findByDriverId(Long riderId);
+  List<RideEntity> findByDriverId(Long riderId);
 
-    List<RideEntity> findByClientId(Long clientId);
+  List<RideEntity> findByClientId(Long clientId);
 }

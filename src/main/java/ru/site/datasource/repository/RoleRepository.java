@@ -8,5 +8,5 @@ import ru.site.datasource.model.Role;
 
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
-    Optional<Role> findByRoleName(RoleName roleName);
+  Optional<Role> findByRoleName(RoleName roleName);
 }

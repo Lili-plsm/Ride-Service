@@ -16,35 +16,33 @@ import ru.site.security.service.JwtProvider;
 @Component
 public class AuthFilter extends OncePerRequestFilter {
 
-    private final JwtProvider jwtProvider;
-    private final AuthService authService;
+  private final JwtProvider jwtProvider;
+  private final AuthService authService;
 
-    public AuthFilter(JwtProvider jwtProvider, AuthService authService) {
-        this.jwtProvider = jwtProvider;
-        this.authService = authService;
-    }
+  public AuthFilter(JwtProvider jwtProvider, AuthService authService) {
+    this.jwtProvider = jwtProvider;
+    this.authService = authService;
+  }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
-        throws ServletException, IOException {
+  @Override
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+    String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      String token = authHeader.substring(7);
 
-            if (jwtProvider.validateAccessToken(token)) {
-                Claims claims = jwtProvider.getClaimsFromToken(token);
-                if (claims != null) {
-                    Authentication auth =
-                        authService.getJwtAuthentication(token);
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                }
-            }
+      if (jwtProvider.validateAccessToken(token)) {
+        Claims claims = jwtProvider.getClaimsFromToken(token);
+        if (claims != null) {
+          Authentication auth = authService.getJwtAuthentication(token);
+          SecurityContextHolder.getContext().setAuthentication(auth);
         }
-
-        filterChain.doFilter(request, response);
+      }
     }
+
+    filterChain.doFilter(request, response);
+  }
 }

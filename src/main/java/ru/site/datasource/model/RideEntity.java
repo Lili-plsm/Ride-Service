@@ -19,33 +19,33 @@ import ru.site.datasource.enums.RideStatus;
 @Table(name = "ride")
 public class RideEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "driver_id")
-    private Long driverId;
+  @Column(name = "driver_id")
+  private Long driverId;
 
-    @Column(name = "client_id")
-    private Long clientId;
+  @Column(name = "client_id")
+  private Long clientId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private RideStatus rideStatus;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private RideStatus rideStatus;
 
-    @Column(nullable = false)
-    private Double startLatitude;
+  @Column(nullable = false)
+  private Double startLatitude;
 
-    @Column(nullable = false)
-    private Double startLongitude;
+  @Column(nullable = false)
+  private Double startLongitude;
 
-    @Column(nullable = false)
-    private Double endLatitude;
+  @Column(nullable = false)
+  private Double endLatitude;
 
-    @Column(nullable = false)
-    private Double endLongitude;
+  @Column(nullable = false)
+  private Double endLongitude;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 }

@@ -14,38 +14,36 @@ import ru.site.dto.event.PaymentEvent;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private final PaymentRepositotyService paymentRepositoryService;
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final ObjectMapper objectMapper;
+  private final PaymentRepositotyService paymentRepositoryService;
+  private final KafkaTemplate<String, String> kafkaTemplate;
+  private final ObjectMapper objectMapper;
 
-    public PaymentServiceImpl(KafkaTemplate<String, String> kafkaTemplate,
-                              PaymentRepositotyService paymentRepositoryService,
-                              ObjectMapper objectMapper) {
-        this.paymentRepositoryService = paymentRepositoryService;
-        this.kafkaTemplate = kafkaTemplate;
-        this.objectMapper = objectMapper;
-    }
+  public PaymentServiceImpl(
+      KafkaTemplate<String, String> kafkaTemplate,
+      PaymentRepositotyService paymentRepositoryService,
+      ObjectMapper objectMapper) {
+    this.paymentRepositoryService = paymentRepositoryService;
+    this.kafkaTemplate = kafkaTemplate;
+    this.objectMapper = objectMapper;
+  }
 
-    @KafkaListener(topics = "payment", groupId = "driver-service")
-    public void processPaymentEvent(String message) throws JsonProcessingException {
-        System.out.println("Получено сообщение из топика 'payment': " + message);
+  @KafkaListener(topics = "payment", groupId = "driver-service")
+  public void processPaymentEvent(String message) throws JsonProcessingException {
 
-        PaymentEvent paymentEvent = objectMapper.readValue(message, PaymentEvent.class);
-        Long rideId = paymentEvent.getRideId();
-        Long clientId = paymentEvent.getClientId();
+    PaymentEvent paymentEvent = objectMapper.readValue(message, PaymentEvent.class);
+    Long rideId = paymentEvent.getRideId();
+    Long clientId = paymentEvent.getClientId();
 
-        NewRideStatusEvent rideStatusEvent = NewRideStatusEvent.builder()
-                                                 .rideId(rideId)
-                                                 .rideStatus(RideStatus.IN_PROGRESS)
-                                                 .build();
+    NewRideStatusEvent rideStatusEvent =
+        NewRideStatusEvent.builder().rideId(rideId).rideStatus(RideStatus.IN_PROGRESS).build();
 
-        Payment payment = new Payment();
-        payment.setAmount(paymentEvent.getAmount());
-        payment.setRideId(rideId);
-        payment.setClientId(clientId);
-        paymentRepositoryService.savePayment(payment);
+    Payment payment = new Payment();
+    payment.setAmount(paymentEvent.getAmount());
+    payment.setRideId(rideId);
+    payment.setClientId(clientId);
+    paymentRepositoryService.savePayment(payment);
 
-        String jsonResponse = objectMapper.writeValueAsString(rideStatusEvent);
-        kafkaTemplate.send("ride-status", jsonResponse);
-    }
+    String jsonResponse = objectMapper.writeValueAsString(rideStatusEvent);
+    kafkaTemplate.send("ride-status", jsonResponse);
+  }
 }

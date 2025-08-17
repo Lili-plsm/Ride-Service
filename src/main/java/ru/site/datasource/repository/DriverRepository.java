@@ -7,5 +7,5 @@ import ru.site.datasource.model.Driver;
 
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Long> {
-    Optional<Driver> findByUserId(Long userId);
+  Optional<Driver> findByUserId(Long userId);
 }

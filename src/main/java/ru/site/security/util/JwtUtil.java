@@ -13,21 +13,18 @@ import ru.site.security.model.JwtAuthentication;
 @Component
 public class JwtUtil {
 
-    public JwtAuthentication generate(Claims claims) {
+  public JwtAuthentication generate(Claims claims) {
 
-        String login = claims.getSubject();
+    String login = claims.getSubject();
 
-        @SuppressWarnings("unchecked")
-List<String> roles = (List<String>) claims.get("roles", List.class);		
-        Collection<? extends GrantedAuthority> authorities =
-            Collections.emptyList();
+    @SuppressWarnings("unchecked")
+    List<String> roles = (List<String>) claims.get("roles", List.class);
+    Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
 
-        if (roles != null) {
-            authorities = roles.stream()
-                              .map(SimpleGrantedAuthority::new)
-                              .collect(Collectors.toList());
-        }
-
-        return new JwtAuthentication(login, authorities);
+    if (roles != null) {
+      authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
+
+    return new JwtAuthentication(login, authorities);
+  }
 }

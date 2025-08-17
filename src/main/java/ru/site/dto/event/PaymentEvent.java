@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentEvent {
-    private Long rideId;
-    private Long clientId;
-    private double amount;
+  private Long rideId;
+  private Long clientId;
+  private double amount;
 }

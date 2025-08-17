@@ -11,10 +11,9 @@ import ru.site.datasource.enums.RideStatus;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class RideResponse {
-    private Long rideId;
-    private RideStatus status;
-    private LocalDateTime createdAt;
-    private String message;
+  private Long rideId;
+  private RideStatus status;
+  private LocalDateTime createdAt;
+  private String message;
 }

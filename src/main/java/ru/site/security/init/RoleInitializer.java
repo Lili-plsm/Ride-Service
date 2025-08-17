@@ -9,23 +9,23 @@ import ru.site.datasource.repository.RoleRepository;
 @Component
 public class RoleInitializer implements CommandLineRunner {
 
-    private final RoleRepository roleRepository;
+  private final RoleRepository roleRepository;
 
-    public RoleInitializer(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+  public RoleInitializer(RoleRepository roleRepository) {
+    this.roleRepository = roleRepository;
+  }
 
-    @Override
-    public void run(String... args) throws Exception {
-        createRoleIfNotFound(RoleName.USER);
-        createRoleIfNotFound(RoleName.ADMIN);
-    }
+  @Override
+  public void run(String... args) throws Exception {
+    createRoleIfNotFound(RoleName.USER);
+    createRoleIfNotFound(RoleName.ADMIN);
+  }
 
-    private void createRoleIfNotFound(RoleName roleName) {
-        if (roleRepository.findByRoleName(roleName).isEmpty()) {
-            Role role = new Role();
-            role.setRoleName(roleName);
-            roleRepository.save(role);
-        }
+  private void createRoleIfNotFound(RoleName roleName) {
+    if (roleRepository.findByRoleName(roleName).isEmpty()) {
+      Role role = new Role();
+      role.setRoleName(roleName);
+      roleRepository.save(role);
     }
+  }
 }

@@ -6,8 +6,11 @@ import ru.site.datasource.model.Driver;
 
 @Service
 public interface DriverRepositoryService {
-    public List<Driver> getAllDrivers();
-    public Driver saveDriver(Driver driver);
-    public Driver getDriver(Long id);
-    public Long getDriverIdByUserId(Long userId);
+  List<Driver> getAllDrivers();
+
+  Driver saveDriver(Driver driver);
+
+  Driver getDriver(Long id);
+
+  Long getDriverIdByUserId(Long userId);
 }
