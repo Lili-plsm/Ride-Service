@@ -29,8 +29,7 @@ public class SecurityConfig {
                         "/register",
                         "/auth",
                         "/update_access",
-                        "/update_refresh",
-                        "/swagger-ui.html")
+                        "/update_refresh")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

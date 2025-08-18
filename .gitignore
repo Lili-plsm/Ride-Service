@@ -1,5 +1,8 @@
 .DS_Store
 
+application.properties
+
+.env
 # Compiled class file
 *.class
 
@@ -26,7 +29,9 @@ hs_err_pid*
 replay_pid*
 
 
-# IntelliJ IDEA
 .idea/
+build/
+.gradle/
+bin/
 *.iml
 out/

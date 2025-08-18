@@ -1,0 +1,71 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "0:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  kafka:
+    container_name: kafka_container
+    image: 'bitnami/kafka:latest'
+    ports:
+     - "0:9092"
+    environment:
+      KAFKA_CFG_NODE_ID: 1                         
+      KAFKA_CFG_PROCESS_ROLES: controller,broker 
+      KAFKA_CFG_CLUSTER_ID: xyz-cluster-id     
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: '1@kafka:9093'
+      KAFKA_CFG_LISTENERS: PLAINTEXT://kafka:9092,CONTROLLER://kafka:9093 
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER                  
+      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CFG_CONFLUENT_SUPPORT_METRIC_ENABLED: false
+      KAFKA_CFG_INTER_BROKER_PROTOCOL_VERSION: 3.5
+      KAFKA_CFG_OFFSETS_TOPIC_NUM_PARTITIONS: 1
+    
+    volumes:
+      - volume1:/bitnami/kafka
+
+  app:
+    container_name: app_container
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: ./gradlew test
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+volumes:
+  pgdata:
+  volume1:
+
+
+  
