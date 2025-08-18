@@ -33,5 +33,6 @@ replay_pid*
 build/
 .gradle/
 bin/
+postgres-data/
 *.iml
 out/
