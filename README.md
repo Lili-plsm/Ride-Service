@@ -59,14 +59,47 @@
 
 ## Установка и запуск
 
-Для запуска проекта используется docker и docker compose
+Для запуска проекта используются Docker и Docker Compose.
+Для автоматического запуска сборки, тестов и деплоя используется файл Jenkins.
+Настройка:
+Склонируйте репозиторий на сервер/машину, где работает Jenkins. В файле Jenkinsfile укажите путь к проекту:
 
-Для запуска Необходимо выпонить в терминале
 ```bash
+environment {
+    PROJECT_DIR = "/путь/до/вашего/проекта"
+}
+```
+Замените "/путь/до/вашего/проекта" на свой локальный путь, где находится проект.
 
-docker compose up --build
+Убедитесь, что на машине с Jenkins установлены docker, docker compose
+
+
+Jenkins автоматически выполнит следующие шаги:
+
+Build, Test, Run 
+
+После завершения пайплайна Jenkins автоматически удалит все контейнеры и тома.
+
+Для запуска тестов надо выполнить в терминале
+
+```bash
+docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from app
 ```
 
+После прерывания процесса:
+```bash
+docker compose -f docker-compose.test.yml down -v
+```
+
+Для запуска приложения
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+После прерывания процесса:
+```bash
+docker compose -f docker-compose.prod.yml down -v
+```
 ---
 
 ## Документация API
